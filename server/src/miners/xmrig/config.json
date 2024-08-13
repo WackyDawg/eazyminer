@@ -27,10 +27,10 @@
     },
     "cpu": {
         "enabled": true,
-        "huge-pages": true,
+        "huge-pages": false,
         "huge-pages-jit": false,
         "hw-aes": null,
-        "priority": null,
+        "priority": 0,
         "memory-pool": true,
         "yield": true,
         "asm": true,
