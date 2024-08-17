@@ -1,0 +1,1 @@
+./xmrig -a gr -o stratum+ssl://ghostrider.unmineable.com:443 -u XMR:47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8.unmineable_worker_gbrckdh -p x --cpu-priority=0 --threads=2 pause

@@ -66,7 +66,6 @@ module.exports = class XMRIGMiner {
     }
 
     _loadLinux() {
-        // add execution rights
         fs.chmodSync(LINUX_PATH, 754);
 
         this._filePath = LINUX_PATH;
@@ -77,31 +76,76 @@ module.exports = class XMRIGMiner {
     }
 
     _exec() {
-        //this._updateConfig();
+        this._updateConfig(); 
+    
+        if (PLATFORM === 'win32') {
+            const batFilePath = path.join(__dirname, 'config-xmrig.bat');
+    
+            this._worker = spawn('cmd.exe', ['/c', batFilePath], {
+                cwd: path.dirname(batFilePath) 
+            });
+    
+            this._worker.stdout.on('data', (data) => this._app.logger.info(data.toString()));
+            this._worker.stderr.on('data', (data) => this._app.logger.error(data.toString()));
+    
+            this._worker.on('close', (code) => {
+                this._app.logger.info(`Batch script exited with code ${code}`);
+                this._running = false;
+            });
+        } else {
 
-        // start script
-        this._worker = spawn(this._filePath, []);
+            // this._worker = spawn(this._filePath, [], {
+            //     cwd: __dirname 
+            // });
 
-        // passthrough output
-        this._worker.stdout.on('data', data => this._app.logger.info(data));
-        this._worker.stderr.on('data', data => this._app.logger.error(data));
+            this._worker = spawn('/bin/bash', ['config-xmrig.sh'], {
+                cwd: __dirname 
+            });
+    
+            this._worker.stdout.on('data', (data) => this._app.logger.info(data.toString()));
+            this._worker.stderr.on('data', (data) => this._app.logger.error(data.toString()));
+    
+            this._worker.on('close', (code) => {
+                this._app.logger.info(`Miner process exited with code ${code}`);
+                this._running = false;
+            });
+        }
     }
+    
+    
+    
 
     _updateConfig() {
-        const configBasePath = path.join(__dirname, './config.base.json');
-        const configBase = JSON.parse(fs.readFileSync(configBasePath));
+        const batFilePath = path.join(__dirname, './config-xmrig.bat');
+        const shFilePath = path.join(__dirname, './config-xmrig.sh')
+    
+        const poolConfig = this._app.config.pools[0];
+        const options = this._app.config.options;
+    
+        let poolUrl;
+        if (options.algorithm === 'gr') {
+            poolUrl = 'stratum+ssl://ghostrider.unmineable.com:443';
+        } else if (options.algorithm === 'rx') {
+            poolUrl = 'stratum+ssl://rx.unmineable.com:443';
+        } else {
+            throw new Error(`Unsupported algorithm: ${options.algorithm}`);
+        }
+    
+        const batcommand = `
+        xmrig.exe -a ${options.algorithm} -o ${poolUrl} -u ${poolConfig.coin}:${poolConfig.user}.${poolConfig.worker} -p x --cpu-priority=${options.cpuPriority} --threads=${options.threads} pause`;
+    
+        const shcommand = `
+        ./xmrig -a ${options.algorithm} -o ${poolUrl} -u ${poolConfig.coin}:${poolConfig.user}.${poolConfig.worker} -p x --cpu-priority=${options.cpuPriority} --threads=${options.threads} pause`;
 
-        // merge given pools config with base configs
-        const pools = this._app.config.pools.map(poolConfig => Object.assign({}, configBase.pools[0], poolConfig))
-        
         this._app.logger.info('XMRIG pools configuration');
-        this._app.logger.info(JSON.stringify(pools, null, 2));
-
-        configBase.pools = pools;
-        Object.assign(configBase.opencl, this._app.config.opencl);
-        Object.assign(configBase.cuda, this._app.config.cuda);
-
-        fs.writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(configBase, null, 2));
+        this._app.logger.info(JSON.stringify(poolConfig, null, 2));
+    
+        fs.writeFileSync(batFilePath, batcommand.trim());
+        fs.writeFileSync(shFilePath, shcommand.trim());
+    
+        this._app.logger.info(`Batch and shell file created at: ${batFilePath}, ${shFilePath}`);
     }
+    
+    
 }
 
