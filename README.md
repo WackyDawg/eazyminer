@@ -8,7 +8,7 @@ Updated configuration settings, adding a lot of options.
 The miner wasn't always starting with previous versions. Please update.
 
 &#x200B;
-
+ 
 ```
 npm install eazyminer
 ```
