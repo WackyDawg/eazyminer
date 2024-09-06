@@ -111,7 +111,12 @@
         "adl": true,
         "cn-lite/0": false,
         "cn/0": false,
-        "panthera": false
+        "panthera": false,
+        "ghostrider": [
+            [8, 0],
+            [8, 2],
+            [8, 4]
+        ]
     },
     "cuda": {
         "enabled": false,  
