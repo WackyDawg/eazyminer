@@ -26,7 +26,7 @@
         "scratchpad_prefetch_mode": 1
     },
     "cpu": {
-        "enabled": false,  // Disable CPU usage
+        "enabled": false,  
         "huge-pages": true,
         "huge-pages-jit": false,
         "hw-aes": null,
@@ -104,7 +104,7 @@
         "rx/keva": "rx/wow"
     },
     "opencl": {
-        "enabled": true,  // Enable OpenCL for GPU
+        "enabled": true,  
         "cache": true,
         "loader": null,
         "platform": "AMD",
@@ -114,7 +114,7 @@
         "panthera": false
     },
     "cuda": {
-        "enabled": false,  // Disable CUDA if using OpenCL, or set to true if using CUDA
+        "enabled": false,  
         "loader": null,
         "nvml": true,
         "cn-lite/0": false,
