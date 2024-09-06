@@ -33,7 +33,7 @@
         "priority": null,
         "memory-pool": true,
         "yield": true,
-        "max-threads-hint": 100,
+        "max-threads-hint": 1,
         "asm": true,
         "argon2-impl": null,
         "cn/0": false,
