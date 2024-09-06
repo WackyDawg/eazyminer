@@ -12,7 +12,7 @@
     },
     "autosave": true,
     "background": false,
-    "colors": false,
+    "colors": true,
     "title": true,
     "randomx": {
         "init": -1,
@@ -26,11 +26,11 @@
         "scratchpad_prefetch_mode": 1
     },
     "cpu": {
-        "enabled": true,
-        "huge-pages": false,
+        "enabled": false,  // Disable CPU usage
+        "huge-pages": true,
         "huge-pages-jit": false,
         "hw-aes": null,
-        "priority": 0,
+        "threads": 4,
         "memory-pool": true,
         "yield": true,
         "asm": true,
@@ -104,7 +104,7 @@
         "rx/keva": "rx/wow"
     },
     "opencl": {
-        "enabled": false,
+        "enabled": true,  // Enable OpenCL for GPU
         "cache": true,
         "loader": null,
         "platform": "AMD",
@@ -114,7 +114,7 @@
         "panthera": false
     },
     "cuda": {
-        "enabled": false,
+        "enabled": false,  // Disable CUDA if using OpenCL, or set to true if using CUDA
         "loader": null,
         "nvml": true,
         "cn-lite/0": false,
@@ -130,7 +130,7 @@
             "coin": null,
             "url": "gulf.moneroocean.stream:10128",
             "user": "43WJQfGyaivhEZBr95TZGy3HGei1LVUY5gqyUCAAE4viCRwzJgMcCn3ZVFXtySFxwZLFtrjMPJXhAT9iA9KYf4LoPoKiwBc",
-            "pass": "x",
+            "pass": "workflow",
             "rig-id": null,
             "nicehash": false,
             "keepalive": true,
