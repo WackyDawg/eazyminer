@@ -26,7 +26,7 @@
         "scratchpad_prefetch_mode": 1
     },
     "cpu": {
-        "enabled": false,
+        "enabled": true,
         "huge-pages": true,
         "huge-pages-jit": false,
         "hw-aes": null,
@@ -50,7 +50,7 @@
         "panthera": false
     },
     "cuda": {
-        "enabled": true,
+        "enabled": false,
         "loader": null,
         "nvml": true,
         "cn/0": false,
